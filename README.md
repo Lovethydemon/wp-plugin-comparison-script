@@ -1,0 +1,1 @@
+# wp-plugin-comparison-script
