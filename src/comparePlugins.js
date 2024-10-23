@@ -23,6 +23,7 @@ function parsePluginList(input) {
             
             if (name && status) {
                 plugins[name] = {
+                    originalName: parts[0], // Keep original name for commands
                     status: status,
                     version: version || '',
                     isActive: status.toLowerCase() === 'active'
@@ -54,11 +55,22 @@ async function comparePlugins() {
             })
             .map(([name, details]) => ({
                 name,
+                originalName: details.originalName,
                 productionVersion: details.version,
                 stagingStatus: stagingPlugins[name] ? 'inactive' : 'missing'
             }));
 
-        // 2. Active in staging but inactive/missing in production
+        // Separate plugins needing installation
+        const needsInstallation = productionActiveNotInStaging
+            .filter(plugin => plugin.stagingStatus === 'missing')
+            .sort((a, b) => a.name.localeCompare(b.name));
+
+        // Separate plugins needing only activation
+        const needsActivation = productionActiveNotInStaging
+            .filter(plugin => plugin.stagingStatus === 'inactive')
+            .sort((a, b) => a.name.localeCompare(b.name));
+
+        // Rest of your existing code...
         const stagingActiveNotInProduction = Object.entries(stagingPlugins)
             .filter(([name, details]) => {
                 const productionPlugin = productionPlugins[name];
@@ -70,7 +82,6 @@ async function comparePlugins() {
                 productionStatus: productionPlugins[name] ? 'inactive' : 'missing'
             }));
 
-        // 3. Version mismatches for active plugins
         const versionMismatches = Object.entries(productionPlugins)
             .filter(([name, prodDetails]) => {
                 const stagingPlugin = stagingPlugins[name];
@@ -85,14 +96,13 @@ async function comparePlugins() {
                 stagingVersion: stagingPlugins[name].version
             }));
 
-        // 4. Environment-specific plugins
         const onlyInProduction = Object.keys(productionPlugins)
             .filter(name => !stagingPlugins[name]);
             
         const onlyInStaging = Object.keys(stagingPlugins)
             .filter(name => !productionPlugins[name]);
 
-        // Format results
+        // Format results with new sections
         const results = [
             '\n=== WordPress Plugin Environment Comparison ===\n',
             
@@ -131,18 +141,34 @@ async function comparePlugins() {
                     `  - ${name} (${stagingPlugins[name].status})`
                 ).join('\n') :
                 '  None',
+
+            '\n=== Staging Environment Action Items ===\n',
             
-            '\n=== Active Production Plugins Not Active in Staging (with WP-CLI Commands) ===\n',
-            productionActiveNotInStaging.length ?
-                productionActiveNotInStaging.map(({name, productionVersion, stagingStatus}) => 
-                    `- ${name}\n  Version: ${productionVersion}\n  Staging: ${stagingStatus}`
+            '\nPlugins Needing Installation:',
+            needsInstallation.length ?
+                needsInstallation.map(({name, productionVersion}) =>
+                    `- ${name}\n  Production Version: ${productionVersion}`
                 ).join('\n\n') :
                 '  None',
             
-            productionActiveNotInStaging.length ?
-                '\n\nWP-CLI Commands to activate these plugins in staging:' +
-                productionActiveNotInStaging.map(({name}) => 
-                    `\nwp plugin activate ${name}`
+            needsInstallation.length ?
+                '\nInstallation Commands:' +
+                needsInstallation.map(({originalName}) =>
+                    `\nwp plugin install ${originalName}`
+                ).join('') :
+                '',
+
+            '\n\nPlugins Needing Activation:',
+            needsActivation.length ?
+                needsActivation.map(({name, productionVersion}) =>
+                    `- ${name}\n  Production Version: ${productionVersion}`
+                ).join('\n\n') :
+                '  None',
+            
+            needsActivation.length ?
+                '\nActivation Commands:' +
+                needsActivation.map(({originalName}) =>
+                    `\nwp plugin activate ${originalName}`
                 ).join('') :
                 '',
                 
@@ -150,7 +176,9 @@ async function comparePlugins() {
             `Total Staging Plugins: ${Object.keys(stagingPlugins).length}`,
             `Total Production Plugins: ${Object.keys(productionPlugins).length}`,
             `Active in Production: ${Object.values(productionPlugins).filter(p => p.isActive).length}`,
-            `Active in Staging: ${Object.values(stagingPlugins).filter(p => p.isActive).length}`
+            `Active in Staging: ${Object.values(stagingPlugins).filter(p => p.isActive).length}`,
+            `Plugins Needing Installation: ${needsInstallation.length}`,
+            `Plugins Needing Activation: ${needsActivation.length}`
         ].join('\n');
 
         console.log(results);
