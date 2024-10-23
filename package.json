@@ -1,13 +1,13 @@
 {
   "name": "wp-plugin-compare",
   "version": "1.0.0",
-  "description": "WordPress plugin comparison tool",
-  "main": "src/comparePlugins.js",
+  "description": "WordPress plugin environment comparison tool",
+  "main": "src/compare-plugins.js",
   "scripts": {
-    "start": "node src/comparePlugins.js",
-    "compare": "node src/comparePlugins.js"
+    "compare": "node src/compare-plugins.js",
+    "start": "node src/compare-plugins.js"
   },
-  "keywords": ["wordpress", "plugins", "comparison"],
-  "author": "",
+  "keywords": ["wordpress", "plugins", "comparison", "wp-cli"],
+  "author": "Cejay Rich Dev <cejayrich@outlook.com>",
   "license": "ISC"
 }
