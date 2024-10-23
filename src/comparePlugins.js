@@ -131,6 +131,20 @@ async function comparePlugins() {
                     `  - ${name} (${stagingPlugins[name].status})`
                 ).join('\n') :
                 '  None',
+            
+            '\n=== Active Production Plugins Not Active in Staging (with WP-CLI Commands) ===\n',
+            productionActiveNotInStaging.length ?
+                productionActiveNotInStaging.map(({name, productionVersion, stagingStatus}) => 
+                    `- ${name}\n  Version: ${productionVersion}\n  Staging: ${stagingStatus}`
+                ).join('\n\n') :
+                '  None',
+            
+            productionActiveNotInStaging.length ?
+                '\n\nWP-CLI Commands to activate these plugins in staging:' +
+                productionActiveNotInStaging.map(({name}) => 
+                    `\nwp plugin activate ${name}`
+                ).join('') :
+                '',
                 
             '\n\nParsing Summary:',
             `Total Staging Plugins: ${Object.keys(stagingPlugins).length}`,

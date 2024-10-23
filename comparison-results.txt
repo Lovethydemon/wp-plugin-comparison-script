@@ -23,7 +23,18 @@
   - woocommerce-gateway-stripe (Production v8.7.0) - inactive in staging
   - wp-lister-amazon (Production v2.6.3) - inactive in staging
 
-2. VERSION MISMATCHES (ACTIVE PLUGINS):
+2. ACTIVE IN STAGING BUT INACTIVE/MISSING IN PRODUCTION:
+  - action-scheduler-high-volume (Staging v1.1.0) - missing in production
+  - afterpay-gateway-for-woocommerce (Staging v3.8.6) - inactive in production
+  - disable-emails (Staging v1.8.2) - inactive in production
+  - free-gifts-for-woocommerce (Staging v11.3.0) - inactive in production
+  - sg-order-importer (Staging v1.0.2) - inactive in production
+  - woocommerce-gateway-affirm (Staging v2.1.1) - inactive in production
+  - wp-graphql-content-blocks-2 (Staging v4.0.1) - missing in production
+  - wpgraphql-ide (Staging v1.1.9) - inactive in production
+  - wpgraphql-smart-cache (Staging v1.3.3) - inactive in production
+
+3. VERSION MISMATCHES (ACTIVE PLUGINS):
   - query-monitor:
     Production: 3.14.1
     Staging: 3.13.1
@@ -40,7 +51,7 @@
     Production: 1.8.9
     Staging: 1.7.40
 
-3. ENVIRONMENT-SPECIFIC PLUGINS:
+4. ENVIRONMENT-SPECIFIC PLUGINS:
 
 Only in Production:
   - action-scheduler-high-volume-master (active)
@@ -70,7 +81,109 @@ Only in Staging:
   - sg-wc-session-debugger (inactive)
   - wp-graphql-content-blocks-2 (active)
 
+=== Active Production Plugins Not Active in Staging (with WP-CLI Commands) ===
+
+- action-scheduler-high-volume-master
+  Version: 1.1.0
+  Staging: missing
+
+- advanced-custom-fields
+  Version: 6.3.6
+  Staging: missing
+
+- webappick-product-feed-for-woocommerce-pro
+  Version: 7.3.17
+  Staging: inactive
+
+- debug-bar
+  Version: 1.1.4
+  Staging: missing
+
+- elementor
+  Version: 3.17.2
+  Staging: inactive
+
+- elementor-pro
+  Version: 3.17.1
+  Staging: missing
+
+- email-customizer-pro
+  Version: 4.1.0
+  Staging: inactive
+
+- gravityforms
+  Version: 2.7.7.1
+  Staging: inactive
+
+- growdevelopment-monitor-scheduled-posts
+  Version: 1.0.2
+  Staging: inactive
+
+- growdevelopment-track-web-vitals
+  Version: 1.0.0
+  Staging: inactive
+
+- metorik-helper
+  Version: 2.0.6
+  Staging: inactive
+
+- plugin-organizer
+  Version: 10.1.10
+  Staging: inactive
+
+- sage-easy-facebook-management
+  Version: 1.0.0
+  Staging: inactive
+
+- sagegoddess-membership-rewards
+  Version: 2.0
+  Staging: inactive
+
+- scratch-win-giveaways-for-website-facebook
+  Version: 2.6.5
+  Staging: inactive
+
+- sendgrid-email-delivery-simplified
+  Version: 1.11.8
+  Staging: inactive
+
+- woocommerce-shipstation-integration
+  Version: 4.3.9
+  Staging: inactive
+
+- woocommerce-gateway-stripe
+  Version: 8.7.0
+  Staging: inactive
+
+- wp-lister-amazon
+  Version: 2.6.3
+  Staging: inactive
+
+
+WP-CLI Commands to activate these plugins in staging:
+wp plugin activate action-scheduler-high-volume-master
+wp plugin activate advanced-custom-fields
+wp plugin activate webappick-product-feed-for-woocommerce-pro
+wp plugin activate debug-bar
+wp plugin activate elementor
+wp plugin activate elementor-pro
+wp plugin activate email-customizer-pro
+wp plugin activate gravityforms
+wp plugin activate growdevelopment-monitor-scheduled-posts
+wp plugin activate growdevelopment-track-web-vitals
+wp plugin activate metorik-helper
+wp plugin activate plugin-organizer
+wp plugin activate sage-easy-facebook-management
+wp plugin activate sagegoddess-membership-rewards
+wp plugin activate scratch-win-giveaways-for-website-facebook
+wp plugin activate sendgrid-email-delivery-simplified
+wp plugin activate woocommerce-shipstation-integration
+wp plugin activate woocommerce-gateway-stripe
+wp plugin activate wp-lister-amazon
+
 
 Parsing Summary:
 Total Staging Plugins: 129
 Total Production Plugins: 145
+Active in Production: 93
+Active in Staging: 83
