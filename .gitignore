@@ -1,0 +1,12 @@
+# Node
+node_modules/
+
+# Environment plugin lists
+data/*.txt
+
+# Results
+comparison-results.txt
+
+# OS files
+.DS_Store
+Thumbs.db
