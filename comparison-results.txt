@@ -1,0 +1,76 @@
+
+=== WordPress Plugin Environment Comparison ===
+
+
+1. ACTIVE IN PRODUCTION BUT MISSING/INACTIVE IN STAGING:
+  - action-scheduler-high-volume-master (Production v1.1.0) - missing in staging
+  - advanced-custom-fields (Production v6.3.6) - missing in staging
+  - webappick-product-feed-for-woocommerce-pro (Production v7.3.17) - inactive in staging
+  - debug-bar (Production v1.1.4) - missing in staging
+  - elementor (Production v3.17.2) - inactive in staging
+  - elementor-pro (Production v3.17.1) - missing in staging
+  - email-customizer-pro (Production v4.1.0) - inactive in staging
+  - gravityforms (Production v2.7.7.1) - inactive in staging
+  - growdevelopment-monitor-scheduled-posts (Production v1.0.2) - inactive in staging
+  - growdevelopment-track-web-vitals (Production v1.0.0) - inactive in staging
+  - metorik-helper (Production v2.0.6) - inactive in staging
+  - plugin-organizer (Production v10.1.10) - inactive in staging
+  - sage-easy-facebook-management (Production v1.0.0) - inactive in staging
+  - sagegoddess-membership-rewards (Production v2.0) - inactive in staging
+  - scratch-win-giveaways-for-website-facebook (Production v2.6.5) - inactive in staging
+  - sendgrid-email-delivery-simplified (Production v1.11.8) - inactive in staging
+  - woocommerce-shipstation-integration (Production v4.3.9) - inactive in staging
+  - woocommerce-gateway-stripe (Production v8.7.0) - inactive in staging
+  - wp-lister-amazon (Production v2.6.3) - inactive in staging
+
+2. VERSION MISMATCHES (ACTIVE PLUGINS):
+  - query-monitor:
+    Production: 3.14.1
+    Staging: 3.13.1
+  - transients-manager:
+    Production: 2.0.3
+    Staging: 2.0.5
+  - woocommerce:
+    Production: 8.3.0
+    Staging: 8.2.0
+  - woocommerce-memberships:
+    Production: 1.26.9
+    Staging: 1.25.2
+  - woocommerce-points-and-rewards:
+    Production: 1.8.9
+    Staging: 1.7.40
+
+3. ENVIRONMENT-SPECIFIC PLUGINS:
+
+Only in Production:
+  - action-scheduler-high-volume-master (active)
+  - advanced-custom-fields (active)
+  - code-profiler-pro (inactive)
+  - debug-bar (active)
+  - divit-extension-evaluator (inactive)
+  - elementor-pro (active)
+  - basic-auth-master (inactive)
+  - oracle (inactive)
+  - woobox (inactive)
+  - custom-exclude-plugin-purge-requests (must-use)
+  - divit-extn-eval-checker (must-use)
+  - ep-logging (must-use)
+  - redis-cache-pro (must-use)
+  - custom-global-purge-pages (must-use)
+  - pagely-empty-meta-form-keys (must-use)
+  - pagely-pressthumb (must-use)
+  - remove-nag (must-use)
+  - wp-migrate-db-pro-compatibility (must-use)
+  - default-wp-die-header-change (must-use)
+  - wp-die-handler (must-use)
+
+Only in Staging:
+  - action-scheduler-high-volume (active)
+  - headless-mode (inactive)
+  - sg-wc-session-debugger (inactive)
+  - wp-graphql-content-blocks-2 (active)
+
+
+Parsing Summary:
+Total Staging Plugins: 129
+Total Production Plugins: 145

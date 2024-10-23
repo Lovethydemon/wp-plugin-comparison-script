@@ -1,0 +1,131 @@
+name	status	update	version	update_version	auto_update
+action-scheduler-high-volume	active	none	1.1.0		off
+add-wpgraphql-seo	active	none	4.22.5		off
+advanced-custom-fields-pro	active	available	6.1.7	6.3.9	off
+afterpay-gateway-for-woocommerce	active	none	3.8.6		off
+akismet	active	available	5.3	5.3.3	off
+wp-asset-clean-up	inactive	available	1.3.9.3	1.3.9.7	off
+checkout-for-woocommerce	active	none	9.1.1		off
+cmb2	active	available	2.10.1	2.11.0	off
+webappick-product-feed-for-woocommerce-pro	inactive	none	7.3.17	off
+disable-cart-fragments	active	none	2.3		off
+disable-emails	active	none	1.8.2		off
+duplicate-page	active	available	4.5.3	4.5.4	off
+elasticpress	inactive	available	5.0.1	5.1.3	off
+debug-bar-elasticpress	inactive	none	3.1.0		off
+elasticpress-stream	inactive	none	1.0.0		off
+elementor	inactive	available	3.17.2	3.24.7	off
+email-customizer-pro	inactive	available	4.1.0	4.3.0	off
+enable-cors	inactive	none	1.2.3		off
+extra-user-details	active	available	0.5.1	0.5.3	off
+foundry-add-orders-product-button	active	none			off
+foundry-banned-customers	active	none	1.0.0		off
+foundry-change-email-subject	active	none	1.0.0		off
+foundry-penny-on-hold-orders	active	none	1.0.0		off
+foundry-sliders	active	none	1.0.0		off
+foundry-snippets	active	none	1.0		off
+free-gifts-for-woocommerce	active	available	11.3.0	11.5.0	off
+gravityforms	inactive	none	2.7.7.1		on
+gravityformsuserregistration	active	none	5.0		off
+growdev	active	none	0.0.1		off
+growdevelopment-account	active	none	1.0.0		off
+growdevelopment-monitor-scheduled-posts	inactive	none	1.0.2		off
+growdevelopment-restricted-area	active	none	1.0.0		off
+growdevelopment-track-web-vitals	inactive	none	1.0.0		off
+headless-cms-master	active	none	2.0.4		off
+wp-graphql-headless-login	active	none	0.3.0		off
+headless-mode	inactive	none	0.4.0		off
+jet-menu	active	none	2.4.2		off
+klaviyo	active	available	3.3.5	3.4.1	off
+klaviyo-toolkit	active	none	1.8.1		off
+metorik-helper	inactive	available	1.7.1	2.0.6	off
+wp-newrelic	active	available	1.3.2	1.3.3	off
+nitropack	active	available	1.14.0	1.17.0	off
+woocommerce-google-adwords-conversion-tracking-tag	active	available	1.34.0	1.44.2	off
+pixelyoursite-pro	active	none	9.11.0.2		off
+pixelyoursite-super-pack	active	none	5.0.0		off
+plugin-organizer	inactive	none	10.1.10		off
+woocommerce-point-of-sale	inactive	none	6.4.0		off
+popup-maker	inactive	available	1.18.2	1.20.2	off
+woo-preview-emails	inactive	available	2.1.6	2.2.13	off
+wcpb-product-badges-custom	active	available	2.4.0	3.1.0	off
+query-monitor	active	available	3.13.1	3.16.4	off
+redirection	active	available	5.3.10	5.5.0	off
+replace-internal-link-urls-main	active	none	1.3		off
+sg-collections	active	none	1.1		off
+sagegoddess-discount-display	inactive	none	1.3		off
+sage-easy-facebook-management	inactive	none	1.0.0		off
+sagegoddess-membership-rewards	inactive	none	2.0		off
+sagegoddess-odoo	active	none	1.1.1		off
+sage-search-user-social-handles	active	none	1.0.1		off
+scratch-win-giveaways-for-website-facebook	inactive	available	2.6.5	2.6.8	off
+search-exclude	active	available	2.0.9	2.1.6	off
+sendgrid-email-delivery-simplified	inactive	none	1.11.8		off
+sg-headless-wp-utilities	active	none	1.0		off
+sagegoddess-blacklist-users	active	none	1.0		off
+sg-order-importer	active	none	1.0.2		off
+sg-niversal-smart-banners-main	active	none	1.0.0		off
+sg-waitlist-api	active	none	1.0		off
+sg-wc-session-debugger	inactive	none	1.0		off
+social-networks-links-by-performance-foundry	active	none	0.3.0		off
+stream	active	available	3.10.0	4.0.2	off
+tarokina-pro	inactive	none	1.2.7		off
+taxjar-simplified-taxes-for-woocommerce	active	available	4.2.1	4.2.3	off
+the-events-calendar	inactive	available	6.2.9	6.7.1	off
+tiktok-for-business	active	available	1.2.2	1.2.8	off
+transients-manager	active	available	2.0.5	2.0.7	off
+user-role-editor	active	available	4.64	4.64.2	off
+user-switching	active	available	1.7.0	1.8.0	off
+wha-wordsearch	inactive	none	2.0.1		off
+woocommerce	active	available	8.2.0	9.3.3	off
+woocommerce-shipstation-integration	inactive	available	4.3.9	4.4.4	off
+woocommerce-gateway-affirm	active	available	2.1.1	2.4.1	off
+woocommerce-cart-add-ons	active	none	2.0.0		off
+woocommerce-free-gift-coupons	inactive	available	3.4.5	3.7.1	off
+woocommerce-gift-cards	active	available	1.16.3	2.1.0	off
+woocommerce-memberships	active	available	1.25.2	1.26.9	off
+woocommerce-paypal-payments	active	available	2.2.2	2.9.3	off
+woocommerce-points-and-rewards	active	available	1.7.40	1.8.9	off
+woocommerce-product-addons	active	available	6.4.5	7.1.2	off
+woocommerce-product-recommendations	inactive	available	3.0.3	4.1.0	off
+woocommerce-product-reviews-pro	active	available	1.19.0	1.19.2	off
+woocommerce-social-login	active	available	2.13.0	2.15.1	off
+woocommerce-gateway-stripe	inactive	available	8.7.0	8.8.0	off
+woocommerce-subscriptions-preserve-billing-schedule	active	none	1.0.0	off
+woocommerce-subscriptions-gifting	inactive	available	2.7.0	2.8.0	off
+wcs-remove-deprecated-handlers	active	none	1.0		off
+wc-tree-table-rate-shipping	active	available	1.33.2	1.35.0	off
+woocommerce-waitlist	active	available	2.4.1	2.4.15	off
+woographql-pro	active	none	1.4.1		off
+woo-quick-view	inactive	none	1.1.1		off
+woocommerce-subscriptions	active	available	5.8.0	6.8.0	off
+wp-lister-amazon	inactive	none	2.6.3		off
+wp-crontrol	active	available	1.16.1	1.17.0	off
+wp-graphql	active	available	1.26.0	1.28.1	off
+wpgraphql-blocks	inactive	available	2.0.4	2.1.1	off
+wp-graphql-content-blocks-2	active	none	4.0.1		off
+wp-graphql-cors-master	active	none	2.1		off
+wpgraphql-acf	active	available	2.2.0	2.4.1	off
+wpgraphql-ide	active	none	1.1.9		off
+wpgraphql-smart-cache	active	none	1.3.3		off
+wp-graphql-woocommerce	active	none	0.19.0		off
+mabel-wheel-of-fortune	inactive	none	4.0.5		off
+wp-api-menus	active	none	1.3.2		off
+yith-woocommerce-wishlist-premium	active	none	3.24.1		off
+yith-woocommerce-wishlist-rest-api-master	active	none	0.0.1		off
+wordpress-seo	active	available	22.3	23.7	off
+wpseo-woocommerce	active	none	16.0		off
+wordpress-seo-premium	active	none	21.7		off
+quadpay-gateway-for-woocommerce	active	none	1.9.0		off
+admin-ajax-exclusions	must-use	none			off
+disconnect_wc_features	must-use	none	1.0		off
+ep-filter-meta	must-use	none			off
+pagely-opensearch-replicas	must-use	none	1.0.0		off
+opensearch-version-override	must-use	none	1.0.0		off
+pagely-management-v2	must-use	none	2.0.66		off
+PluginOrganizerMU.class	must-use	none	10.1.10		off
+sagegoddess	must-use	none	0.0.1		off
+env-settings	must-use	none	0.0.1		off
+tarokina	must-use	none			off
+advanced-cache.php	dropin	none			off
+db.php	dropin	none
