@@ -1,4 +1,3 @@
-// src/compare-plugins.js
 const fs = require('fs').promises;
 const path = require('path');
 
@@ -23,7 +22,7 @@ function parsePluginList(input) {
             
             if (name && status) {
                 plugins[name] = {
-                    originalName: parts[0], // Keep original name for commands
+                    originalName: parts[0],
                     status: status,
                     version: version || '',
                     isActive: status.toLowerCase() === 'active'
@@ -33,6 +32,19 @@ function parsePluginList(input) {
     }
     
     return plugins;
+}
+
+function compareVersions(version1, version2) {
+    const v1Parts = version1.split('.').map(Number);
+    const v2Parts = version2.split('.').map(Number);
+    
+    for (let i = 0; i < Math.max(v1Parts.length, v2Parts.length); i++) {
+        const v1 = v1Parts[i] || 0;
+        const v2 = v2Parts[i] || 0;
+        if (v1 > v2) return 1;
+        if (v1 < v2) return -1;
+    }
+    return 0;
 }
 
 async function comparePlugins() {
@@ -47,7 +59,7 @@ async function comparePlugins() {
         const stagingPlugins = parsePluginList(stagingContent);
         const productionPlugins = parsePluginList(productionContent);
 
-        // 1. Active in production but missing or inactive in staging
+        // Base comparisons (existing code)
         const productionActiveNotInStaging = Object.entries(productionPlugins)
             .filter(([name, details]) => {
                 const stagingPlugin = stagingPlugins[name];
@@ -60,42 +72,102 @@ async function comparePlugins() {
                 stagingStatus: stagingPlugins[name] ? 'inactive' : 'missing'
             }));
 
-        // Separate plugins needing installation
         const needsInstallation = productionActiveNotInStaging
             .filter(plugin => plugin.stagingStatus === 'missing')
             .sort((a, b) => a.name.localeCompare(b.name));
 
-        // Separate plugins needing only activation
         const needsActivation = productionActiveNotInStaging
             .filter(plugin => plugin.stagingStatus === 'inactive')
             .sort((a, b) => a.name.localeCompare(b.name));
 
-        // Rest of your existing code...
-        const stagingActiveNotInProduction = Object.entries(stagingPlugins)
-            .filter(([name, details]) => {
-                const productionPlugin = productionPlugins[name];
-                return details.isActive && (!productionPlugin || !productionPlugin.isActive);
-            })
-            .map(([name, details]) => ({
-                name,
-                stagingVersion: details.version,
-                productionStatus: productionPlugins[name] ? 'inactive' : 'missing'
-            }));
+        // Enhanced version difference analysis
+        const allPlugins = new Set([
+            ...Object.keys(stagingPlugins),
+            ...Object.keys(productionPlugins)
+        ]);
 
-        const versionMismatches = Object.entries(productionPlugins)
-            .filter(([name, prodDetails]) => {
-                const stagingPlugin = stagingPlugins[name];
-                return prodDetails.isActive && 
-                       stagingPlugin && 
-                       stagingPlugin.isActive && 
-                       prodDetails.version !== stagingPlugin.version;
-            })
-            .map(([name, prodDetails]) => ({
+        // 1. Version differences for active plugins in both environments
+        const activeInBothVersionDiff = Array.from(allPlugins)
+            .filter(name => 
+                stagingPlugins[name]?.isActive && 
+                productionPlugins[name]?.isActive &&
+                stagingPlugins[name]?.version !== productionPlugins[name]?.version
+            )
+            .map(name => ({
                 name,
-                productionVersion: prodDetails.version,
-                stagingVersion: stagingPlugins[name].version
-            }));
+                stagingVersion: stagingPlugins[name].version,
+                productionVersion: productionPlugins[name].version,
+                versionDiff: compareVersions(stagingPlugins[name].version, productionPlugins[name].version)
+            }))
+            .sort((a, b) => b.versionDiff - a.versionDiff);
 
+        // 2. Version differences where staging is ahead
+        const stagingAheadVersions = Array.from(allPlugins)
+            .filter(name => 
+                stagingPlugins[name] && 
+                productionPlugins[name] &&
+                compareVersions(stagingPlugins[name].version, productionPlugins[name].version) > 0
+            )
+            .map(name => ({
+                name,
+                stagingVersion: stagingPlugins[name].version,
+                stagingStatus: stagingPlugins[name].status,
+                productionVersion: productionPlugins[name].version,
+                productionStatus: productionPlugins[name].status
+            }))
+            .sort((a, b) => a.name.localeCompare(b.name));
+
+        // 3. Version differences where production is ahead
+        const productionAheadVersions = Array.from(allPlugins)
+            .filter(name => 
+                stagingPlugins[name] && 
+                productionPlugins[name] &&
+                compareVersions(productionPlugins[name].version, stagingPlugins[name].version) > 0
+            )
+            .map(name => ({
+                name,
+                stagingVersion: stagingPlugins[name].version,
+                stagingStatus: stagingPlugins[name].status,
+                productionVersion: productionPlugins[name].version,
+                productionStatus: productionPlugins[name].status
+            }))
+            .sort((a, b) => a.name.localeCompare(b.name));
+
+        // 4. Critical version mismatches (active plugins with major version differences)
+        const criticalVersionMismatches = Array.from(allPlugins)
+            .filter(name => {
+                if (!stagingPlugins[name] || !productionPlugins[name]) return false;
+                const stagingParts = stagingPlugins[name].version.split('.').map(Number);
+                const productionParts = productionPlugins[name].version.split('.').map(Number);
+                return Math.abs(stagingParts[0] - productionParts[0]) >= 1 &&
+                       (stagingPlugins[name].isActive || productionPlugins[name].isActive);
+            })
+            .map(name => ({
+                name,
+                stagingVersion: stagingPlugins[name].version,
+                stagingStatus: stagingPlugins[name].status,
+                productionVersion: productionPlugins[name].version,
+                productionStatus: productionPlugins[name].status
+            }))
+            .sort((a, b) => a.name.localeCompare(b.name));
+
+        // 5. Inactive plugins with version differences
+        const inactivePluginVersionDiffs = Array.from(allPlugins)
+            .filter(name => 
+                stagingPlugins[name] && 
+                productionPlugins[name] &&
+                !stagingPlugins[name].isActive &&
+                !productionPlugins[name].isActive &&
+                stagingPlugins[name].version !== productionPlugins[name].version
+            )
+            .map(name => ({
+                name,
+                stagingVersion: stagingPlugins[name].version,
+                productionVersion: productionPlugins[name].version
+            }))
+            .sort((a, b) => a.name.localeCompare(b.name));
+
+        // Existing environment-specific plugins
         const onlyInProduction = Object.keys(productionPlugins)
             .filter(name => !stagingPlugins[name]);
             
@@ -106,6 +178,47 @@ async function comparePlugins() {
         const results = [
             '\n=== WordPress Plugin Environment Comparison ===\n',
             
+            '\n=== Version Analysis Sections ===\n',
+            
+            '\n1. ACTIVE PLUGINS VERSION DIFFERENCES (Both Environments):',
+            activeInBothVersionDiff.length ?
+                activeInBothVersionDiff.map(({name, stagingVersion, productionVersion, versionDiff}) =>
+                    `  - ${name}:\n    Staging: v${stagingVersion}\n    Production: v${productionVersion}\n    Status: ${
+                        versionDiff > 0 ? 'Staging ahead' : 'Production ahead'
+                    }`
+                ).join('\n') :
+                '  None',
+                
+            '\n2. STAGING AHEAD VERSIONS:',
+            stagingAheadVersions.length ?
+                stagingAheadVersions.map(({name, stagingVersion, productionVersion, stagingStatus, productionStatus}) =>
+                    `  - ${name}:\n    Staging: v${stagingVersion} (${stagingStatus})\n    Production: v${productionVersion} (${productionStatus})`
+                ).join('\n') :
+                '  None',
+                
+            '\n3. PRODUCTION AHEAD VERSIONS:',
+            productionAheadVersions.length ?
+                productionAheadVersions.map(({name, stagingVersion, productionVersion, stagingStatus, productionStatus}) =>
+                    `  - ${name}:\n    Production: v${productionVersion} (${productionStatus})\n    Staging: v${stagingVersion} (${stagingStatus})`
+                ).join('\n') :
+                '  None',
+                
+            '\n4. CRITICAL VERSION MISMATCHES (Major Version Differences):',
+            criticalVersionMismatches.length ?
+                criticalVersionMismatches.map(({name, stagingVersion, productionVersion, stagingStatus, productionStatus}) =>
+                    `  - ${name}:\n    Staging: v${stagingVersion} (${stagingStatus})\n    Production: v${productionVersion} (${productionStatus})\n    ⚠️ Major version mismatch!`
+                ).join('\n') :
+                '  None',
+                
+            '\n5. INACTIVE PLUGINS VERSION DIFFERENCES:',
+            inactivePluginVersionDiffs.length ?
+                inactivePluginVersionDiffs.map(({name, stagingVersion, productionVersion}) =>
+                    `  - ${name}:\n    Staging: v${stagingVersion}\n    Production: v${productionVersion}`
+                ).join('\n') :
+                '  None',
+
+            '\n=== Environment Status Sections ===\n',
+            
             '\n1. ACTIVE IN PRODUCTION BUT MISSING/INACTIVE IN STAGING:',
             productionActiveNotInStaging.length ? 
                 productionActiveNotInStaging.map(({name, productionVersion, stagingStatus}) => 
@@ -113,36 +226,22 @@ async function comparePlugins() {
                 ).join('\n') :
                 '  None',
             
-            '\n2. ACTIVE IN STAGING BUT INACTIVE/MISSING IN PRODUCTION:',
-            stagingActiveNotInProduction.length ?
-                stagingActiveNotInProduction.map(({name, stagingVersion, productionStatus}) =>
-                    `  - ${name} (Staging v${stagingVersion}) - ${productionStatus} in production`
-                ).join('\n') :
-                '  None',
-            
-            '\n3. VERSION MISMATCHES (ACTIVE PLUGINS):',
-            versionMismatches.length ?
-                versionMismatches.map(({name, productionVersion, stagingVersion}) => 
-                    `  - ${name}:\n    Production: ${productionVersion}\n    Staging: ${stagingVersion}`
-                ).join('\n') :
-                '  None',
-            
-            '\n4. ENVIRONMENT-SPECIFIC PLUGINS:',
+            '\n2. ENVIRONMENT-SPECIFIC PLUGINS:',
             '\nOnly in Production:',
             onlyInProduction.length ?
                 onlyInProduction.map(name => 
-                    `  - ${name} (${productionPlugins[name].status})`
+                    `  - ${name} (${productionPlugins[name].status}) v${productionPlugins[name].version}`
                 ).join('\n') :
                 '  None',
             
             '\nOnly in Staging:',
             onlyInStaging.length ?
                 onlyInStaging.map(name => 
-                    `  - ${name} (${stagingPlugins[name].status})`
+                    `  - ${name} (${stagingPlugins[name].status}) v${stagingPlugins[name].version}`
                 ).join('\n') :
                 '  None',
 
-            '\n=== Staging Environment Action Items ===\n',
+            '\n=== Action Items ===\n',
             
             '\nPlugins Needing Installation:',
             needsInstallation.length ?
@@ -171,14 +270,32 @@ async function comparePlugins() {
                     `\nwp plugin activate ${originalName}`
                 ).join('') :
                 '',
-                
-            '\n\nParsing Summary:',
-            `Total Staging Plugins: ${Object.keys(stagingPlugins).length}`,
-            `Total Production Plugins: ${Object.keys(productionPlugins).length}`,
-            `Active in Production: ${Object.values(productionPlugins).filter(p => p.isActive).length}`,
-            `Active in Staging: ${Object.values(stagingPlugins).filter(p => p.isActive).length}`,
-            `Plugins Needing Installation: ${needsInstallation.length}`,
-            `Plugins Needing Activation: ${needsActivation.length}`
+
+            '\n=== Version Sync Recommendations ===\n',
+            criticalVersionMismatches.length ?
+                '⚠️ CRITICAL: Address major version mismatches first!' : '',
+            productionAheadVersions.length ?
+                '\nConsider updating these staging plugins to match production versions:' +
+                productionAheadVersions.map(({name, productionVersion}) =>
+                    `\n- Update ${name} to v${productionVersion}`
+                ).join('') : '',
+            
+            '\n=== Summary Statistics ===\n',
+            `Total Plugins:`,
+            `  - Staging: ${Object.keys(stagingPlugins).length}`,
+            `  - Production: ${Object.keys(productionPlugins).length}`,
+            `\nActive Plugins:`,
+            `  - Staging: ${Object.values(stagingPlugins).filter(p => p.isActive).length}`,
+            `  - Production: ${Object.values(productionPlugins).filter(p => p.isActive).length}`,
+            `\nVersion Differences:`,
+            `  - Active Plugins: ${activeInBothVersionDiff.length}`,
+            `  - Critical Mismatches: ${criticalVersionMismatches.length}`,
+            `  - Staging Ahead: ${stagingAheadVersions.length}`,
+            `  - Production Ahead: ${productionAheadVersions.length}`,
+            `  - Inactive Plugins: ${inactivePluginVersionDiffs.length}`,
+            `\nAction Items:`,
+            `  - Needs Installation: ${needsInstallation.length}`,
+            `  - Needs Activation: ${needsActivation.length}`
         ].join('\n');
 
         console.log(results);

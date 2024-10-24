@@ -2,8 +2,34 @@
 === WordPress Plugin Environment Comparison ===
 
 
+=== Version Analysis Sections ===
+
+
+1. ACTIVE PLUGINS VERSION DIFFERENCES (Both Environments):
+  - query-monitor:
+    Staging: v3.13.1
+    Production: v3.14.1
+    Status: Production ahead
+
+2. STAGING AHEAD VERSIONS:
+  None
+
+3. PRODUCTION AHEAD VERSIONS:
+  - query-monitor:
+    Production: v3.14.1 (active)
+    Staging: v3.13.1 (active)
+
+4. CRITICAL VERSION MISMATCHES (Major Version Differences):
+  None
+
+5. INACTIVE PLUGINS VERSION DIFFERENCES:
+  None
+
+=== Environment Status Sections ===
+
+
 1. ACTIVE IN PRODUCTION BUT MISSING/INACTIVE IN STAGING:
-  - action-scheduler-high-volume-master (Production v1.1.0) - missing in staging
+  - action-scheduler-high-volume-master (Production v1.1.0) - inactive in staging
   - advanced-custom-fields (Production v6.3.6) - missing in staging
   - webappick-product-feed-for-woocommerce-pro (Production v7.3.17) - inactive in staging
   - debug-bar (Production v1.1.4) - missing in staging
@@ -23,71 +49,39 @@
   - woocommerce-gateway-stripe (Production v8.7.0) - inactive in staging
   - wp-lister-amazon (Production v2.6.3) - inactive in staging
 
-2. ACTIVE IN STAGING BUT INACTIVE/MISSING IN PRODUCTION:
-  - action-scheduler-high-volume (Staging v1.1.0) - missing in production
-  - afterpay-gateway-for-woocommerce (Staging v3.8.6) - inactive in production
-  - disable-emails (Staging v1.8.2) - inactive in production
-  - free-gifts-for-woocommerce (Staging v11.3.0) - inactive in production
-  - sg-order-importer (Staging v1.0.2) - inactive in production
-  - woocommerce-gateway-affirm (Staging v2.1.1) - inactive in production
-  - wp-graphql-content-blocks-2 (Staging v4.0.1) - missing in production
-  - wpgraphql-ide (Staging v1.1.9) - inactive in production
-  - wpgraphql-smart-cache (Staging v1.3.3) - inactive in production
-
-3. VERSION MISMATCHES (ACTIVE PLUGINS):
-  - query-monitor:
-    Production: 3.14.1
-    Staging: 3.13.1
-  - transients-manager:
-    Production: 2.0.3
-    Staging: 2.0.5
-  - woocommerce:
-    Production: 8.3.0
-    Staging: 8.2.0
-  - woocommerce-memberships:
-    Production: 1.26.9
-    Staging: 1.25.2
-  - woocommerce-points-and-rewards:
-    Production: 1.8.9
-    Staging: 1.7.40
-
-4. ENVIRONMENT-SPECIFIC PLUGINS:
+2. ENVIRONMENT-SPECIFIC PLUGINS:
 
 Only in Production:
-  - action-scheduler-high-volume-master (active)
-  - advanced-custom-fields (active)
-  - code-profiler-pro (inactive)
-  - debug-bar (active)
-  - divit-extension-evaluator (inactive)
-  - elementor-pro (active)
-  - basic-auth-master (inactive)
-  - oracle (inactive)
-  - woobox (inactive)
-  - custom-exclude-plugin-purge-requests (must-use)
-  - divit-extn-eval-checker (must-use)
-  - ep-logging (must-use)
-  - redis-cache-pro (must-use)
-  - custom-global-purge-pages (must-use)
-  - pagely-empty-meta-form-keys (must-use)
-  - pagely-pressthumb (must-use)
-  - remove-nag (must-use)
-  - wp-migrate-db-pro-compatibility (must-use)
-  - default-wp-die-header-change (must-use)
-  - wp-die-handler (must-use)
+  - advanced-custom-fields (active) v6.3.6
+  - code-profiler-pro (inactive) v1.6.5
+  - debug-bar (active) v1.1.4
+  - elementor-pro (active) v3.17.1
+  - basic-auth-master (inactive) v0.1
+  - oracle (inactive) v0.1
+  - woobox (inactive) v1.6
+  - custom-exclude-plugin-purge-requests (must-use) v0.2
+  - divit-extn-eval-checker (must-use) v
+  - ep-logging (must-use) v
+  - redis-cache-pro (must-use) v1.21.2
+  - custom-global-purge-pages (must-use) v1.0
+  - pagely-empty-meta-form-keys (must-use) v1.0.0
+  - pagely-pressthumb (must-use) v1.0.1
+  - remove-nag (must-use) v
+  - wp-migrate-db-pro-compatibility (must-use) v1.1
+  - default-wp-die-header-change (must-use) v0.0.1
+  - wp-die-handler (must-use) v0.0.1
 
 Only in Staging:
-  - action-scheduler-high-volume (active)
-  - headless-mode (inactive)
-  - sg-wc-session-debugger (inactive)
-  - wp-graphql-content-blocks-2 (active)
+  - action-scheduler-high-volume (active) v1.1.0
+  - headless-mode (inactive) v0.4.0
+  - sg-wc-session-debugger (inactive) v1.0
+  - wp-graphql-content-blocks-2 (active) v4.0.1
+  - db.php (dropin) v
 
-=== Staging Environment Action Items ===
+=== Action Items ===
 
 
 Plugins Needing Installation:
-- action-scheduler-high-volume-master
-  Production Version: 1.1.0
-
 - advanced-custom-fields
   Production Version: 6.3.6
 
@@ -98,13 +92,15 @@ Plugins Needing Installation:
   Production Version: 3.17.1
 
 Installation Commands:
-wp plugin install action-scheduler-high-volume-master
 wp plugin install advanced-custom-fields
 wp plugin install debug-bar
 wp plugin install elementor-pro
 
 
 Plugins Needing Activation:
+- action-scheduler-high-volume-master
+  Production Version: 1.1.0
+
 - elementor
   Production Version: 3.17.2
 
@@ -151,6 +147,7 @@ Plugins Needing Activation:
   Production Version: 2.6.3
 
 Activation Commands:
+wp plugin activate action-scheduler-high-volume-master
 wp plugin activate elementor
 wp plugin activate email-customizer-pro
 wp plugin activate gravityforms
@@ -167,11 +164,30 @@ wp plugin activate woocommerce-gateway-stripe
 wp plugin activate woocommerce-shipstation-integration
 wp plugin activate wp-lister-amazon
 
+=== Version Sync Recommendations ===
 
-Parsing Summary:
-Total Staging Plugins: 129
-Total Production Plugins: 145
-Active in Production: 93
-Active in Staging: 83
-Plugins Needing Installation: 4
-Plugins Needing Activation: 15
+
+
+Consider updating these staging plugins to match production versions:
+- Update query-monitor to v3.14.1
+
+=== Summary Statistics ===
+
+Total Plugins:
+  - Staging: 132
+  - Production: 145
+
+Active Plugins:
+  - Staging: 81
+  - Production: 95
+
+Version Differences:
+  - Active Plugins: 1
+  - Critical Mismatches: 0
+  - Staging Ahead: 0
+  - Production Ahead: 1
+  - Inactive Plugins: 0
+
+Action Items:
+  - Needs Installation: 3
+  - Needs Activation: 16

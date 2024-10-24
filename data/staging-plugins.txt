@@ -1,4 +1,5 @@
 name	status	update	version	update_version	auto_update
+action-scheduler-high-volume-master	inactive	none	1.1.0		off
 action-scheduler-high-volume	active	none	1.1.0		off
 add-wpgraphql-seo	active	none	4.22.5		off
 advanced-custom-fields-pro	active	available	6.1.7	6.3.9	off
@@ -7,9 +8,10 @@ akismet	active	available	5.3	5.3.3	off
 wp-asset-clean-up	inactive	available	1.3.9.3	1.3.9.7	off
 checkout-for-woocommerce	active	none	9.1.1		off
 cmb2	active	available	2.10.1	2.11.0	off
-webappick-product-feed-for-woocommerce-pro	inactive	none	7.3.17	off
+webappick-product-feed-for-woocommerce-pro	inactive	none	7.3.17		off
 disable-cart-fragments	active	none	2.3		off
 disable-emails	active	none	1.8.2		off
+divit-extension-evaluator	inactive	none	2.2		off
 duplicate-page	active	available	4.5.3	4.5.4	off
 elasticpress	inactive	available	5.0.1	5.1.3	off
 debug-bar-elasticpress	inactive	none	3.1.0		off
@@ -38,7 +40,7 @@ headless-mode	inactive	none	0.4.0		off
 jet-menu	active	none	2.4.2		off
 klaviyo	active	available	3.3.5	3.4.1	off
 klaviyo-toolkit	active	none	1.8.1		off
-metorik-helper	inactive	available	1.7.1	2.0.6	off
+metorik-helper	inactive	none	2.0.6		off
 wp-newrelic	active	available	1.3.2	1.3.3	off
 nitropack	active	available	1.14.0	1.17.0	off
 woocommerce-google-adwords-conversion-tracking-tag	active	available	1.34.0	1.44.2	off
@@ -47,7 +49,7 @@ pixelyoursite-super-pack	active	none	5.0.0		off
 plugin-organizer	inactive	none	10.1.10		off
 woocommerce-point-of-sale	inactive	none	6.4.0		off
 popup-maker	inactive	available	1.18.2	1.20.2	off
-woo-preview-emails	inactive	available	2.1.6	2.2.13	off
+woo-preview-emails	inactive	none	2.2.13		off
 wcpb-product-badges-custom	active	available	2.4.0	3.1.0	off
 query-monitor	active	available	3.13.1	3.16.4	off
 redirection	active	available	5.3.10	5.5.0	off
@@ -73,25 +75,25 @@ tarokina-pro	inactive	none	1.2.7		off
 taxjar-simplified-taxes-for-woocommerce	active	available	4.2.1	4.2.3	off
 the-events-calendar	inactive	available	6.2.9	6.7.1	off
 tiktok-for-business	active	available	1.2.2	1.2.8	off
-transients-manager	active	available	2.0.5	2.0.7	off
+transients-manager	active	available	2.0.3	2.0.7	off
 user-role-editor	active	available	4.64	4.64.2	off
 user-switching	active	available	1.7.0	1.8.0	off
 wha-wordsearch	inactive	none	2.0.1		off
-woocommerce	active	available	8.2.0	9.3.3	off
+woocommerce	active	available	8.3.0	9.3.3	off
 woocommerce-shipstation-integration	inactive	available	4.3.9	4.4.4	off
 woocommerce-gateway-affirm	active	available	2.1.1	2.4.1	off
 woocommerce-cart-add-ons	active	none	2.0.0		off
 woocommerce-free-gift-coupons	inactive	available	3.4.5	3.7.1	off
 woocommerce-gift-cards	active	available	1.16.3	2.1.0	off
-woocommerce-memberships	active	available	1.25.2	1.26.9	off
+woocommerce-memberships	active	none	1.26.9		off
 woocommerce-paypal-payments	active	available	2.2.2	2.9.3	off
-woocommerce-points-and-rewards	active	available	1.7.40	1.8.9	off
+woocommerce-points-and-rewards	active	none	1.8.9		off
 woocommerce-product-addons	active	available	6.4.5	7.1.2	off
 woocommerce-product-recommendations	inactive	available	3.0.3	4.1.0	off
 woocommerce-product-reviews-pro	active	available	1.19.0	1.19.2	off
 woocommerce-social-login	active	available	2.13.0	2.15.1	off
 woocommerce-gateway-stripe	inactive	available	8.7.0	8.8.0	off
-woocommerce-subscriptions-preserve-billing-schedule	active	none	1.0.0	off
+woocommerce-subscriptions-preserve-billing-schedule	active	none	1.0.0		off
 woocommerce-subscriptions-gifting	inactive	available	2.7.0	2.8.0	off
 wcs-remove-deprecated-handlers	active	none	1.0		off
 wc-tree-table-rate-shipping	active	available	1.33.2	1.35.0	off
@@ -106,8 +108,8 @@ wpgraphql-blocks	inactive	available	2.0.4	2.1.1	off
 wp-graphql-content-blocks-2	active	none	4.0.1		off
 wp-graphql-cors-master	active	none	2.1		off
 wpgraphql-acf	active	available	2.2.0	2.4.1	off
-wpgraphql-ide	active	none	1.1.9		off
-wpgraphql-smart-cache	active	none	1.3.3		off
+wpgraphql-ide	inactive	none	1.1.9		off
+wpgraphql-smart-cache	inactive	none	1.3.3		off
 wp-graphql-woocommerce	active	none	0.19.0		off
 mabel-wheel-of-fortune	inactive	none	4.0.5		off
 wp-api-menus	active	none	1.3.2		off
@@ -128,4 +130,4 @@ sagegoddess	must-use	none	0.0.1		off
 env-settings	must-use	none	0.0.1		off
 tarokina	must-use	none			off
 advanced-cache.php	dropin	none			off
-db.php	dropin	none
+db.php	dropin	none			off

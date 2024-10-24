@@ -3,7 +3,7 @@ action-scheduler-high-volume-master	active	none	1.1.0
 add-wpgraphql-seo	active	none	4.22.5
 advanced-custom-fields	active	available	6.3.6
 advanced-custom-fields-pro	active	available	6.1.7
-afterpay-gateway-for-woocommerce	inactive	none	3.8.6
+afterpay-gateway-for-woocommerce	active	none	3.8.6
 akismet	active	available	5.3
 wp-asset-clean-up	inactive	available	1.3.9.3
 checkout-for-woocommerce	active	none	9.1.1
@@ -69,7 +69,7 @@ search-exclude	active	available	2.0.9
 sendgrid-email-delivery-simplified	active	none	1.11.8
 sg-headless-wp-utilities	active	none	1.0
 sagegoddess-blacklist-users	active	none	1.0
-sg-order-importer	inactive	none	1.0.2
+sg-order-importer	active	none	1.0.2
 sg-niversal-smart-banners-main	active	none	1.0.0
 sg-waitlist-api	active	none	1.0
 social-networks-links-by-performance-foundry	active	none	0.3.0
